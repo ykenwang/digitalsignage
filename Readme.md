@@ -1,6 +1,4 @@
-### Digital Signage
+##Donors Recognition Project
+###Development Log
 
-**Project** code sharing
-
-Edited by Andrew
-Edited by Ken
+Check out the Weekly Tasks file in the ~/Document folder.
