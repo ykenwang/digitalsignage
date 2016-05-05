@@ -5,6 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <style type="text/css">
+        #TextArea1 {
+            height: 62px;
+            width: 311px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -28,7 +34,7 @@
             <SortedDescendingCellStyle BackColor="#CAC9C9" />
             <SortedDescendingHeaderStyle BackColor="#00547E" />
         </asp:GridView>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" DeleteCommand="DELETE FROM [donors] WHERE [Id] = @original_Id AND (([name] = @original_name) OR ([name] IS NULL AND @original_name IS NULL)) AND (([photo] = @original_photo) OR ([photo] IS NULL AND @original_photo IS NULL)) AND (([profile] = @original_profile) OR ([profile] IS NULL AND @original_profile IS NULL))" InsertCommand="INSERT INTO [donors] ([name], [photo], [profile]) VALUES (@name, @photo, @profile)" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT * FROM [donors]" UpdateCommand="UPDATE [donors] SET [name] = @name, [photo] = @photo, [profile] = @profile WHERE [Id] = @original_Id">
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" DeleteCommand="DELETE FROM [donors] WHERE [Id] = @original_Id" InsertCommand="INSERT INTO [donors] ([name], [photo], [profile]) VALUES (@name, @photo, @profile)" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT * FROM [donors]" UpdateCommand="UPDATE [donors] SET [name] = @name, [photo] = @photo, [profile] = @profile WHERE [Id] = @original_Id">
             <DeleteParameters>
                 <asp:Parameter Name="original_Id" Type="Int32" />
                 <asp:Parameter Name="original_name" Type="String" />
@@ -52,6 +58,25 @@
         </asp:SqlDataSource>
     
     </div>
+        <div>
+        <p>
+            <asp:Label ID="LName" runat="server" Text="Name"></asp:Label>
+            :
+            <asp:TextBox ID="NameBox" runat="server"></asp:TextBox>
+        </p>
+        <p>
+            <asp:Label ID="LPhoto" runat="server" Text="Photo"></asp:Label>
+            :
+            <asp:FileUpload ID="ImageUpload" runat="server" Height="33px" Width="320px" />
+        <p>
+            <asp:Label ID="LProfile" runat="server" Text="Profile"></asp:Label>
+            :
+            <asp:TextBox ID="txtProfile" runat="server" Width="200px" Height="70px" TextMode="multiLine"></asp:TextBox>
+        </p>
+            <p>
+                <asp:Button ID="SubButton" runat="server" Text="Submit" OnClick="SubButton_Click" />
+            </p>
+        </div>
     </form>
 </body>
 </html>
