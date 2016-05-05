@@ -2,7 +2,8 @@
 ###Development Log
 
 #### May 5, 2016 Tasks
-**Team
+
+**Team**
 - Overall design of the system architecture
 - Develop a naming convention
 - Develop the E-R diagram
