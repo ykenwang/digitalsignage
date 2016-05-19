@@ -10,12 +10,13 @@ using System.Web.UI.HtmlControls;
 
 public partial class _Default : System.Web.UI.Page
 {
-    string connStr = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\maindb.mdf;Integrated Security = True";
     DataTable dt;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        dt = Load();
+        Call_Database callDb = new Call_Database();
+        dt = callDb.db;
+
         HtmlGenericControl div, h, p, img;
 
         foreach (DataRow row in dt.Rows)
@@ -41,18 +42,5 @@ public partial class _Default : System.Web.UI.Page
         }
     }
 
-    protected DataTable Load()
-    {
-        DataTable table = new DataTable();
 
-        SqlConnection conn = new SqlConnection(connStr);
-        string command = "SELECT * FROM donors";
-        SqlCommand cmd = new SqlCommand(command, conn);
-        SqlDataReader dr;
-        conn.Open();
-        dr = cmd.ExecuteReader();
-        table.Load(dr);
-        conn.Close();
-        return table;
-    }
 }

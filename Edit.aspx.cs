@@ -10,11 +10,20 @@ using System.Data.SqlClient;
 
 public partial class Edit : System.Web.UI.Page
 {
-    //string connStr = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\maindb.mdf;Integrated Security = True";
-
     protected void Page_Load(object sender, EventArgs e)
     {
+        string strQuery = ""; 
+        if (Request.QueryString["id"] != null)
+        {
+            strQuery = Request.QueryString["id"].ToString();
+        }
 
+
+
+
+        Call_Database classDB = new Call_Database();
+        Repeater1.DataSource = classDB.db;
+        Repeater1.DataBind();
     }
 
     protected bool CheckFileType(string strFileName)
@@ -49,6 +58,8 @@ public partial class Edit : System.Web.UI.Page
 
     protected void SubButton_Click(object sender, EventArgs e)
     {
+        Call_Database callDb = new Call_Database();
+
         if (ImageUpload.HasFile)
         {
             if (CheckFileType(ImageUpload.FileName))
@@ -61,20 +72,13 @@ public partial class Edit : System.Web.UI.Page
         }
         if (NameBox.Text != "" && txtProfile.Text != "")
         {
-            using (SqlConnection conn = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\maindb.mdf;Integrated Security = True"))
-            {
-                SqlCommand CmdSql = new SqlCommand("INSERT INTO [donors] (name, photo, profile) VALUES (@name, @photo, @profile)", conn);
-                conn.Open();
-                CmdSql.Parameters.AddWithValue("@Name", NameBox.Text);
-                CmdSql.Parameters.AddWithValue("@photo", "/Images/" + ImageUpload.FileName);
-                CmdSql.Parameters.AddWithValue("@profile", txtProfile.Text);
-                CmdSql.ExecuteNonQuery();
-                conn.Close();
-            }
 
-        NameBox.Text = String.Empty;
-        txtProfile.Text = String.Empty;
-        Response.Redirect(Request.RawUrl);
+            callDb.Add(NameBox.Text, ImageUpload.FileName, txtProfile.Text);
+
+            NameBox.Text = String.Empty;
+            txtProfile.Text = String.Empty;
+            Response.Redirect(Request.RawUrl);
+        }
     }
-}
+
 }

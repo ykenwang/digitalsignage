@@ -16,7 +16,7 @@
     <form id="form1" runat="server">
     <div>
     
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="Id" DataSourceID="SqlDataSource1">
+        <%--<asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="Id" DataSourceID="SqlDataSource1">
             <Columns>
                 <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
                 <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
@@ -55,8 +55,21 @@
                 <asp:Parameter Name="original_photo" Type="String" />
                 <asp:Parameter Name="original_profile" Type="String" />
             </UpdateParameters>
-        </asp:SqlDataSource>
-    
+        </asp:SqlDataSource>--%>
+        <asp:Repeater ID="Repeater1" runat="server">
+            <HeaderTemplate><table id="editTable"></HeaderTemplate>
+            <ItemTemplate>
+                <asp:Label ID="name" Text='<%# Eval("name") %>' runat="server"></asp:Label>
+            <asp:HyperLink ID ="link" Text="Delete" NavigateUrl='<%# "Edit.aspx?id=" + Eval("id") %>' runat="server" ></asp:HyperLink>
+                <asp:Button ID="button" Text='<%# Eval("id") %>' runat="server"></asp:Button>
+
+
+            </ItemTemplate>
+
+
+            <FooterTemplate></table></FooterTemplate>
+
+        </asp:Repeater>
     </div>
         <div>
         <p>
